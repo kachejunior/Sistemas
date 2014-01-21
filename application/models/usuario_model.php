@@ -23,22 +23,20 @@ class Usuario_model extends CI_Model{
 			return false;			
 	}
 	
-	public function agregar($cedula, $nombre, $apellido, $telefono, $correo, $clave, 
-		$gerencia, $cargo, $nivel_academico, $status_usuario, $grupo_usuario)
+	public function agregar($cedula, $nombre, $apellido, $telefono, $correo,
+					$grupo_usuario, $status_usuario, $sede)
 	{
-		if((!$this->_validar('gerencias', $gerencia)) 
-				OR (!$this->_validar('cargos', $cargo)) 
-				OR (!$this->_validar('niveles_academicos', $nivel_academico))
+		if((!$this->_validar('sedes', $sede)) 
 				OR (!$this->_validar('status_usuarios', $status_usuario)) 
 				OR (!$this->_validar('grupos_usuarios', $grupo_usuario)))
 			return -1;
 		
+		$clave = $this->db->escape(sha1(md5($cedula)));
 		$cedula = $this->db->escape($cedula);
 		$nombre = $this->db->escape($nombre);
 		$apellido = $this->db->escape($apellido);
 		$telefono = $this->db->escape($telefono);
 		$correo = $this->db->escape($correo);
-		$clave = $this->db->escape(sha1(md5($clave)));
 		
 		//validamos que no exista otro elemento con el mismo nombre antes de agregarla
 		$sql = 'select count(*) as total from usuarios where lower(cedula) = lower('.$cedula.')';
@@ -48,18 +46,16 @@ class Usuario_model extends CI_Model{
 		
 		//insertamos el elemento en la tabla y retornamos el id con el que se agrego
 		$sql = 'insert into usuarios values('.$cedula.','.$nombre.','.$apellido.','.
-						$telefono.','.$correo.','.$clave.','.$gerencia.','.$cargo.','.$nivel_academico.
-						','.$status_usuario.','.$grupo_usuario.')';
+						$telefono.','.$correo.','.$clave.','.$grupo_usuario.','.$status_usuario.','.
+						$sede.')';
 		$this->db->query($sql);
 		return $this->db->affected_rows();	
 	}
 
-	public function editar($cedula, $nombre, $apellido, $telefono, $correo, $gerencia, $cargo, 
-		$nivel_academico, $status_usuario, $grupo_usuario)
+	public function editar($cedula, $nombre, $apellido, $telefono, $correo,
+					$grupo_usuario, $status_usuario, $sede)
 	{
-		if((!$this->_validar('gerencias', $gerencia)) 
-				OR (!$this->_validar('cargos', $cargo)) 
-				OR (!$this->_validar('niveles_academicos', $nivel_academico))
+		if((!$this->_validar('sedes', $sede)) 
 				OR (!$this->_validar('status_usuarios', $status_usuario)) 
 				OR (!$this->_validar('grupos_usuarios', $grupo_usuario)))
 			return -1;
@@ -76,11 +72,9 @@ class Usuario_model extends CI_Model{
 						'apellido = '.$apellido.', '.
 						'telefono = '.$telefono.', '.
 						'correo = '.$correo.', '.
-						'id_gerencia = '.(int)$gerencia.', '.
-						'id_cargo = '.(int)$cargo.', '.
-						'id_nivel_academico = '.(int)$nivel_academico.', '.
-						'id_status_usuario = '.(int)$status_usuario.', '.
-						'id_grupo_usuario = '.(int)$grupo_usuario.
+						'status_usuario = '.(int)$status_usuario.', '.
+						'grupo_usuario = '.(int)$grupo_usuario.', '.
+						'sede = '.(int)$sede.
 						' where cedula = '.$cedula;
 		$this->db->query($sql);
 		return $this->db->affected_rows();
@@ -98,8 +92,7 @@ class Usuario_model extends CI_Model{
 	public function get($cedula=FALSE)
 	{
 		//En dado caso que no exista id se devolvera la tabla completa, caso contrario se devolvera el registro especificado
-		$sql = 'select cedula,nombre,apellido,telefono,correo,id_gerencia,id_cargo,'.
-						'id_nivel_academico,id_status_usuario,id_grupo_usuario from usuarios';
+		$sql = 'select cedula,nombre,apellido,telefono,correo,status_usuario,grupo_usuario,sede from usuarios';
 		if($cedula==FALSE)
 		{
 			$sql = $sql.' order by cedula';
@@ -109,7 +102,7 @@ class Usuario_model extends CI_Model{
 		else
 		{
 			$cedula = $this->db->escape($cedula);
-			$sql = $sql.' where cedula = '.$cedula;
+			$sql = $sql.' where cedula = '.$cedula.' order by cedula';
 			$consulta = $this->db->query($sql);
 			return $consulta->row();
 		}
@@ -120,31 +113,34 @@ class Usuario_model extends CI_Model{
 		$cedula = $this->db->escape($cedula);
 		$clave = $this->db->escape(sha1(md5($clave)));
 		
-		$sql = 'select cedula,nombre,apellido,telefono,correo,id_gerencia,id_cargo,'.
-						'id_nivel_academico,id_status_usuario,id_grupo_usuario from usuarios '.
-						'where cedula = '.$cedula.' and clave = '.$clave.' and id_status_usuario = 1';
-		$consulta = $this->db->query($sql);
-		return $consulta->row();
+		$sql = 'select cedula,nombre,apellido,grupo_usuario,sede from usuarios '.
+						' where cedula = '.$cedula.' and clave = '.$clave.' and status_usuario = 1';
+		$query = $this->db->query($sql);
+		if (count($query->row()) > 0)
+			return $query->row();
+		else
+			return false;
 	}
 	
-	public function editar_clave($cedula, $clave, $new_clave)
+	public function editar_clave($cedula, $new_clave)
 	{
 		$cedula = $this->db->escape($cedula);
-		$clave = $this->db->escape(sha1(md5($clave)));
+		//$clave = $this->db->escape(sha1(md5($clave)));
 		$new_clave = $this->db->escape(sha1(md5($new_clave)));
 		
 		//Editamos el elemento en la tabla
 		$sql = 'update usuarios set '. 
 						'clave = '.$new_clave.
-						' where cedula = '.$cedula.' and clave = '.$clave;
+						' where cedula = '.$cedula;
 		$this->db->query($sql);
 		return $this->db->affected_rows();
 	}
 
-	public function restaurar_clave($cedula)
+	public function restaurar_clave($cedula=FALSE)
 	{
+		if ($cedula == FALSE) return -1;
+		$clave = $this->db->escape(sha1(md5($cedula)));
 		$cedula = $this->db->escape($cedula);
-		$clave = $this->db->escape(sha1(md5('12345678')));
 		
 		//Editamos el elemento en la tabla
 		$sql = 'update usuarios set '. 

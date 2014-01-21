@@ -10,7 +10,7 @@
 	//	$this->load->model('evento_model');
 		$this->load->helper('form');
 		$this->load->library('form_validation');
-	//	$this->load->library('session');
+		$this->load->library('session');
 	}
 	
 	

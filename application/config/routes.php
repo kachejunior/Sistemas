@@ -38,7 +38,10 @@
 |
 */
 
-$route['default_controller'] = "welcome";
+$route['default_controller'] = 'inventario';
+$route['general/admin/(:any)']= 'general/index/$1';
+$route['login']= 'usuarios/login';
+$route['cambiar_password']= 'usuarios/cambiar_password';
 $route['404_override'] = '';
 
 

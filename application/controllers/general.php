@@ -11,7 +11,7 @@ class General extends CI_Controller{
 		parent::__construct();
 		$this->load->helper('url');
 		$this->load->model('general_model');
-//		$this->load->library('session');
+		$this->load->library('session');
 //		if($this->session->userdata('logged') != TRUE){
 //                       if(!$this->input->is_ajax_request())
 //                               redirect(base_url().'login');

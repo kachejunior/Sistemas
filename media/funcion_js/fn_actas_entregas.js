@@ -48,6 +48,28 @@ function cargarArticulos(){
     return true;
 }
 
+
+function eliminarArticulo(id){
+	if(!confirm('Esta seguro. ¿Desea eliminarla?'))
+		return false;
+	var post = "id="+$('[name=id]').val();
+	var url = base_url+'entregas/eliminarArticulo/';
+	$.ajax({
+			url: url,
+			data: null,
+			processData: 'false',
+			dataType: 'json',
+			type: "POST",
+			success: function(datos){
+				if (datos == 1)
+					actualizar();
+					alert('Registro eliminado exitosamente');
+			},
+			error: function() {alert('Se ha producido un error');}
+	});
+	return true;
+}
+
 function actualizar(){
 	var post = "id="+$('[name=id]').val();
     var url = base_url+'entregas/lista_articulos';
