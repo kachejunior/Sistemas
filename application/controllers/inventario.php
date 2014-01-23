@@ -11,6 +11,9 @@
 		$this->load->helper('form');
 		$this->load->library('form_validation');
 		$this->load->library('session');
+		if($this->session->userdata('logged') != TRUE){
+			redirect(base_url().'login');
+		}
 	}
 	
 	/*-------------------------------------------Control y manejos de articulos-------------------------------------------------*/
@@ -69,6 +72,18 @@
 		echo json_encode($this->articulos_model->buscar(NULL, $nombre,  $sede, $tipo_articulo, $status));
 	}
 
+	public function xls()
+	{
+		$nombre = $this->input->post('_nombre');
+		$sede = $this->input->post('_sede');
+		$tipo_articulo = $this->input->post('_tipo_articulo');
+		$status = $this->input->post('_status');
+		
+		$data['pacientes'] = $this->articulos_model->buscar(NULL, $nombre,  $sede, $tipo_articulo, $status);
+		$this->load->view('template/header');
+		$this->load->view('xls/inventario_xls',$data);
+		$this->load->view('template/footer');
+	}
 /*-------------------------------------------------------------Control de Actas de Entrega------------------------------------------------------------*/
 	public function getArticulos()
 	{

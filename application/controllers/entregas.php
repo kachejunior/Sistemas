@@ -12,6 +12,9 @@
 		$this->load->helper('form');
 		$this->load->library('form_validation');
 		$this->load->library('session');
+			if($this->session->userdata('logged') != TRUE){
+			redirect(base_url().'login');
+		}
 	}
 	
 	

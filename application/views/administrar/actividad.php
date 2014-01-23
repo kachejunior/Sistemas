@@ -1,15 +1,82 @@
 
+<link href="<?php echo base_url();?>media/css/bootstrap-timepicker.min.css" rel="stylesheet">
+<script src="<?php echo base_url();?>media/js/bootstrap-timepicker.min.js"></script>
 
 <form class="span10 offset1">
+	<!--<form class="span10 offset1" action="http://sistemas.fsbolivar.com.ve/actividad/buscar" method="post">-->
 	<legend>Administración de Actividades</legend>
 		<!-- Button to trigger modal -->
-		<div class="control-group">
-			<a href="#myModal" role="button" class="btn btn-success" data-toggle="modal">
-				<i class="icon-plus-sign icon-white"></i> Agregar Actividad</a>
+		<div class="accordion" id="accordion2">
+                <div class="accordion-group" style="border-color:#FFF ">
+                  <div class="accordion-heading accordion-toggle" style=" height:25px;">
+                    <a class="collapsed text-info" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne" style="margin-top:5px; ">
+                     Busqueda Avanzada <i class="icon-search"></i>
+                    </a>
+				  <a href="<?php echo base_url().'entregas/nuevo'; ?>" class="btn-primary btn-small pull-right">
+				  <i class="icon-plus-sign icon-white"></i> Crear nuevo acta de entrega</a>						
+                  </div>
+                  <div id="collapseOne" class="accordion-body collapse" style="height: 0px;">
+                    <div class="accordion-inner span12">
+						<div class="control-group">
+							<div class="controls">
+								<div class="input-prepend span3">
+									<label>Sede</label>
+									<span class="add-on"><i class="icon-home"></i></span>
+									<select class="span9" name="_sede" id="_sede">
+										<option value="">--Sede--</option>
+										<?php 
+											foreach ($sedes as $row)
+											{
+												$str = '<option value ='.$row->id.'>'.$row->nombre.'</option>';
+												echo $str;
+											} 		
+										?>
+									</select>
+								</div>		
+							</div>
+							<div class="controls">
+								<div class="input-prepend span3">
+									<label>Lugar</label>
+									<span class="add-on"><i class="icon-list"></i></span>
+									<select class="span9" name="_lugar" id="_gerencia">
+										<option value="">--Lugar--</option>
+										
+									</select>
+								</div>		
+							</div>
+							<div class="controls">
+								<div class="input-prepend span3">
+									<label>Fecha Inicio</label>
+									<span class="add-on"><i class="icon-calendar"></i></span>
+									<input class="span9 fecha" name="_fecha_inicio" type="text" placeholder="Fecha Inicio">
+								</div>
+							</div>
+							<div class="controls">
+								<div class="input-prepend span3">
+									<label>Fecha Final</label>
+									<span class="add-on"><i class="icon-calendar"></i></span>
+									<input class="span9 fecha" name="_fecha_final" type="text" placeholder="Fecha Final">
+								</div>
+							</div>
+							<div class="controls">
+									<div class="input-prepend span1">
+										<label style="color:#fff;">Buscar</label>
+										<button class="btn btn-primary " type="button" id="_buscar"><i class="icon-search icon-white"></i></button>
+										<button class="btn btn-primary " type="button" id="_exportar_xls"><i class="icon-download-alt icon-white"></i></button>
+										
+										<!--<input type="submit">-->
+									</div>		
+							</div>
+							
+                    </div>
+                  </div>
+                </div>
+              </div>	
 		</div>
+	<!--</form>-->
 		<table id="tabla" class="table table-hover table-bordered table-striped">
 			<thead>
-				<tr>
+				<tr style="background:#d44413; color: #FFF">
 					<th class="span1">ID</th>
 					<th class="span4">Nombre</th>
 					<th class="span2">Lugar</th>

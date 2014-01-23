@@ -145,6 +145,15 @@ function guardar(){
 }
 
 /*---------------------Busqueda por filtro----------------------------*/
+function xls(){
+	var post= "_nombre="+$('[name=_nombre]').val();
+	post += "&_sede="+$('[name=_sede]').val();
+	post += "&_tipo_articulo="+$('[name=_tipo_articulo]').val();
+	post += "&_status="+$('[name=_status]').val();
+    var url = base_url+'inventario/xls';
+	$(location).attr('href',url);
+//alert(post);
+}
 function buscar(){
 	var post= "_nombre="+$('[name=_nombre]').val();
 	post += "&_sede="+$('[name=_sede]').val();
@@ -191,6 +200,10 @@ $(document).ready(function(){
 	
 	$('#_buscar').click(function(){
 		buscar();
+	});
+	
+	$('#_exportar_xls').click(function(){
+		xls();
 	});
 	
 	$('#myModal').on('hidden', function (){

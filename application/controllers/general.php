@@ -12,12 +12,9 @@ class General extends CI_Controller{
 		$this->load->helper('url');
 		$this->load->model('general_model');
 		$this->load->library('session');
-//		if($this->session->userdata('logged') != TRUE){
-//                       if(!$this->input->is_ajax_request())
-//                               redirect(base_url().'login');
-//                       else
-//                               return -3;
-//         }
+	if($this->session->userdata('logged') != TRUE){
+			redirect(base_url().'login');
+		}
 	}
 
 	public function index($tabla='invalido ')

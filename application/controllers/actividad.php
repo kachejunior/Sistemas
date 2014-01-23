@@ -15,6 +15,9 @@ class Actividad extends CI_Controller{
 		$this->load->model('lugar_model');
 		$this->load->model('actividad_model');
 		$this->load->library('session');
+		if($this->session->userdata('logged') != TRUE){
+			redirect(base_url().'login');
+		}
 	}
 
 	public function index()
@@ -23,6 +26,7 @@ class Actividad extends CI_Controller{
 		$data["lista"] = $this->actividad_model->get2();
 		$data["lugar"] = $this->lugar_model->get2();
 		$data["status_actividad"] = $this->general_model->get('status_actividades');
+		$data["sedes"] = $this->general_model->get('sedes');
 		$this->load->view('template/header');
 		$this->load->view('template/menu');
 		$this->load->view('administrar/actividad',$data);
@@ -101,6 +105,17 @@ class Actividad extends CI_Controller{
 		}
 		else
 			echo '-1';
+	}
+	
+	public function buscar()
+	{
+		$id_lugar = $this->input->post('_lugar');
+		$id_sede = $this->input->post('_sede');
+		$fecha_inicio = $this->input->post('_fecha_inicio');
+		$fecha_final = $this->input->post('_fecha_final');
+		$status_actividad = $this->input->post('_status_actividad');
+	
+		echo json_encode($this->actividad_model->buscar(FALSE, $id_sede, $id_lugar,  $fecha_inicio, $fecha_final, $status_actividad));
 	}
 }
 

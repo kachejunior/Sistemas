@@ -19,9 +19,9 @@ class Usuarios extends CI_Controller{
 
 	public function index()
 	{
-//		if($this->session->userdata('logged') != TRUE){
-//			redirect(base_url().'login');
-//		}
+		if($this->session->userdata('logged') != TRUE){
+			redirect(base_url().'login');
+		}
 		$data["grupo_usuario"] = $this->general_model->get('grupos_usuarios');
 		$data["status_usuario"] = $this->general_model->get('status_usuarios');
 		$data["sede"] = $this->general_model->get('sedes');
@@ -34,26 +34,26 @@ class Usuarios extends CI_Controller{
 		
 	public function get($cedula=FALSE)
 	{
-//		if($this->session->userdata('logged') != TRUE){
-//			redirect(base_url().'login');
-//		}
+		if($this->session->userdata('logged') != TRUE){
+			redirect(base_url().'login');
+		}
 		echo json_encode($this->usuario_model->get($cedula));
 	}
 	
 	
 	public function eliminar($cedula)
 	{
-//		if($this->session->userdata('logged') != TRUE){
-//			redirect(base_url().'login');
-//		}
+		if($this->session->userdata('logged') != TRUE){
+			redirect(base_url().'login');
+		}
 		echo $this->usuario_model->eliminar($cedula);
 	}
 	
 	public function agregar()
 	{
-//		if($this->session->userdata('logged') != TRUE){
-//			redirect(base_url().'login');
-//		}
+		if($this->session->userdata('logged') != TRUE){
+			redirect(base_url().'login');
+		}
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules('cedula', 'Cedula', 'trim|required|max_length[10]');
 		$this->form_validation->set_rules('nombre', 'Nombre', 'trim|required|max_length[60]');
@@ -81,9 +81,9 @@ class Usuarios extends CI_Controller{
 	
 	public function editar()
 	{
-//		if($this->session->userdata('logged') != TRUE){
-//			redirect(base_url().'login');
-//		}
+		if($this->session->userdata('logged') != TRUE){
+			redirect(base_url().'login');
+		}
 		$this->form_validation->set_rules('cedula', 'Cedula', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('nombre', 'Nombre', 'trim|required|max_length[60]');
 		$this->form_validation->set_rules('apellido', 'Apellido', 'trim|required|max_length[60]');
@@ -110,17 +110,17 @@ class Usuarios extends CI_Controller{
 
 	public function resetear_clave($cedula=FALSE)
 	{
-//		if($this->session->userdata('logged') != TRUE){
-//			redirect(base_url().'login');
-//		}
+		if($this->session->userdata('logged') != TRUE){
+			redirect(base_url().'login');
+		}
 		echo json_encode($this->usuario_model->restaurar_clave($cedula));
 	}
 	
 	public function cambiar_clave()
 	{
-//		if($this->session->userdata('logged') != TRUE){
-//			redirect(base_url().'login');
-//		}
+		if($this->session->userdata('logged') != TRUE){
+			redirect(base_url().'login');
+		}
 		$cedula= $this->session->userdata('cedula');
 		$new_clave=$this->input->post('pass_nuevo');
 		echo $this->usuario_model->editar_clave($cedula, $new_clave);
@@ -164,9 +164,9 @@ class Usuarios extends CI_Controller{
 	}
 	
 	public function cambiar_password(){
-//		if($this->session->userdata('logged') != TRUE){
-//			redirect(base_url().'login');
-//		}
+		if($this->session->userdata('logged') != TRUE){
+			redirect(base_url().'login');
+		}
 		$this->load->view('template/header');
 		$this->load->view('template/menu');
 		$this->load->view('template/password');

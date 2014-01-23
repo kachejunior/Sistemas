@@ -68,6 +68,45 @@ function actualizar(){
     return true;
 }
 
+function buscar(){
+	var post= "_sede="+$('[name=_sede]').val();
+	post += "&_lugar="+$('[name=_lugar]').val();
+	post += "&_fecha_inicio="+$('[name=_fecha_inicio]').val();
+	post += "&_fecha_final="+$('[name=_fecha_final]').val();
+    var url = base_url+'actividad/buscar';
+	
+   alert(post+' '+url);
+    $.ajax({
+        url: url,
+        data: post,
+        processData: 'false',
+	   dataType: 'json',
+        type: "POST",
+         success: function(datos) {
+				$('#tabla tbody').html('');
+			for (var i=0; i<datos.length; i++){
+				cadena='<tr>'+
+					'<td class="centrado">'+ datos[i].id +'</td>'+
+					'<td>'+ datos[i].nombre +'</td>'+
+					'<td class="centrado">'+ datos[i].nombre_lugar+' ('+datos[i].nombre_sede+')</td>'+
+					'<td class="centrado">'+datos[i].fecha_inicio+' al '+datos[i].fecha_final+' <br> '+datos[i].hora_inicio+'/'+datos[i].hora_final+'</td>'+
+					'<td class="centrado">'+ datos[i].nombre_responsable+'</td>'+
+					'<td class="centrado"><a class="btn btn-mini btn-warning" href="'+base_url+'servicios/edicion/'+datos[i].id+'">'+
+					'<i class="icon-search icon-white"></i></a>'+
+					' <a class="btn btn-mini btn-danger" onclick="eliminar('+datos[i].id+')">'+
+					'<i class="icon-minus icon-white"></i></a></td>'+
+				'</tr>';
+				$('#tabla tbody').append(cadena);
+				if(!$('#tablal tbody').is(':visible')){
+					$('#tabla caption').click();
+				}
+			}
+        },
+					error: function() {alert('Se ha producido un error');}
+    });
+    return true;
+}
+
 function get(id){
 	var url = base_url+'actividad/get/'+id;
 	$.ajax({
@@ -147,37 +186,9 @@ function guardar(){
 	});
 }
 
-//function ver_por_grupo(sede){
-//    var url = base_url+'lugar/get2//'+sede;
-//    $.ajax({
-//        url: url,
-//        data: null,
-//        processData: 'false',
-//				dataType: 'json',
-//        type: "POST",
-//        success: function(datos) {
-//				$('#tabla tbody').html('');
-//			for (var i=0; i<datos.length; i++){
-//				cadena='<tr>'+
-//					'<td class="centrado">'+ datos[i].id +'</td>'+
-//					'<td>'+ datos[i].nombre +'</td>'+
-//					'<td class="centrado">'+ datos[i].sede+'</td>'+
-//					'<td class="centrado"><a class="btn btn-mini btn-warning" onclick="get('+datos[i].id+')">'+
-//					'<i class="icon-wrench icon-white"></i></a>'+
-//					' <a class="btn btn-mini btn-danger" onclick="eliminar('+datos[i].id+')">'+
-//					'<i class="icon-minus icon-white"></i></a></td>'+
-//				'</tr>';
-//				$('#tabla_general tbody').append(cadena);
-//				if(!$('#tabla tbody').is(':visible')){
-//					$('#tabla caption').click();
-//				}
-//			}
-//        },
-//        error: function() {alert('Se ha producido un error');}
-//    });
-//    return true;
-//}
-
+	$('#_buscar').click(function(){
+		buscar();
+	});
 
 $(document).ready(function(){
 	$('#_guardar').click(function(){

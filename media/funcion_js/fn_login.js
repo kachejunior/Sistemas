@@ -41,7 +41,7 @@ function verificar_datos(){
 				$('#_alerta').append(mensaje_error_datos);
 				return false;
 			}else{
-				$(location).attr('href', base_url+'estadistica');
+				$(location).attr('href', base_url+'inventario');
 			}
 		},
 		error: function() {alert('Se ha producido un error');}

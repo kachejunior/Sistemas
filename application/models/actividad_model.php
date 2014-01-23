@@ -147,5 +147,54 @@ class Actividad_model extends CI_Model{
 		}
 	}
 	
+	
+	public function buscar($id=FALSE, $id_sede=FALSE, $id_lugar=FALSE,  $fecha_inicio=FALSE, $fecha_final=FALSE, $id_status_actividad=FALSE)
+	{
+		//En dado caso que no exista id se devolvera la tabla completa, caso contrario se devolvera el registro especificado
+		$sql = 'select *  from data_actividades where id > 0 ';
+		if($id==FALSE && $id_sede==FALSE &&  $id_lugar==FALSE && $fecha_inicio==FALSE && $fecha_final==FALSE && $id_status_actividad==FALSE)
+		{
+			$sql = $sql.' order by id desc';
+			$consulta = $this->db->query($sql);
+			return $consulta->result(); 
+		}
+			if ($id!=NULL)
+			{
+				$sql = $sql.' and  id = '.$id;
+			}
+			
+			if ($id_sede!=NULL)
+			{
+				$sql = $sql.' and  id_sede = '.$id_sede;
+			}
+			
+			if ($id_lugar!=NULL)
+			{
+				$sql = $sql.' and  id_lugar = '.$id_lugar;
+			}
+			
+			if ($fecha_inicio!=FALSE)
+			{
+				$fecha_inicio = $this->db->escape($fecha_inicio);
+				$sql = $sql.' and  fecha_inicio >= '.$fecha_inicio;
+			}
+			
+			if ($fecha_final!=FALSE)
+			{
+				$fecha_final = $this->db->escape($fecha_final);
+				$sql = $sql.' and  fecha_inicio <= '.$fecha_final;
+			}
+			
+			if ($id_status_actividad!=NULL)
+			{
+				$sql = $sql.' and  id_status_actividad = '.$id_status_actividad;
+			}
+			
+			$sql.'<br/>';
+			$sql = $sql.' order by id desc';
+			$consulta = $this->db->query($sql);
+			return $consulta->result(); 
+		
+	}
 }
 ?>
