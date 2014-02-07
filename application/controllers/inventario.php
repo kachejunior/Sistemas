@@ -102,6 +102,13 @@
 			echo -10;
 	}
 	
+	public function eliminar_acta()
+	{
+		$id_articulo = $this->input->post('id_articulo');
+		$id_acta_entrega = $this->input->post('id');
+		echo $this->articulos_model->eliminar_articulo ($id_acta_entrega, $id_articulo);
+	}
+	
 	public function actas_entregas ()
 	{
 		$this->load->view('template/header');

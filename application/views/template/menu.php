@@ -15,6 +15,7 @@
 		<li><a href="<?php echo base_url()?>actividad">Actividades</a></li>
 		<?php if($this->session->userdata('grupo_usuario')==1) { ?>
 		<li><a href="<?php echo base_url()?>servicios">Servicios Prestado</a></li>
+		<li><a href="<?php echo base_url()?>salidas">Actas Salidas</a></li>
 		<li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Inventario <b class="caret"></b></a>
                         <ul class="dropdown-menu">
@@ -26,8 +27,13 @@
 		<li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administracion <b class="caret"></b></a>
                         <ul class="dropdown-menu">
+                          <li class="nav-header">Adm. Sistemas</li>
+					  <li><a href="<?php echo base_url()?>general/admin/sedes">Sedes</a></li>
+					  <li><a href="<?php echo base_url()?>general/admin/status_actividades">Estatus Actividad</a></li>
+					  <li><a href="<?php echo base_url()?>general/admin/gerencias">Gerencias</a></li>
+					  <li><a href="<?php echo base_url()?>lugar">Lugares</a></li>
+					   <li><a href="<?php echo base_url()?>general/admin/tipos_articulos">Tipos Articulos</a></li>
                           <li class="nav-header">Adm. Usuarios</li>
-                          <li><a href="<?php echo base_url()?>general/admin/sedes">Sedes</a></li>
                           <li><a href="<?php echo base_url()?>general/admin/status_usuarios">Status de usuario</a></li>
                           <li><a href="<?php echo base_url()?>general/admin/grupos_usuarios">Grupo de usuario</a></li>
                           <li><a href="<?php echo base_url()?>usuarios">Usuarios</a></li>

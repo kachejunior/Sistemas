@@ -49,11 +49,13 @@ function cargarArticulos(){
 }
 
 
-function eliminarArticulo(id){
+function eliminarArticulo(id_articulo){
 	if(!confirm('Esta seguro. ¿Desea eliminarla?'))
 		return false;
 	var post = "id="+$('[name=id]').val();
-	var url = base_url+'entregas/eliminarArticulo/';
+	var post = "id_articulo="+id_articulo;
+	var url = base_url+'inventario/eliminar_acta/';
+	alert(post+' '+url);
 	$.ajax({
 			url: url,
 			data: null,
@@ -61,9 +63,11 @@ function eliminarArticulo(id){
 			dataType: 'json',
 			type: "POST",
 			success: function(datos){
-				if (datos == 1)
+				if (datos == 1){
 					actualizar();
+					cargarArticulos();
 					alert('Registro eliminado exitosamente');
+				}
 			},
 			error: function() {alert('Se ha producido un error');}
 	});
@@ -89,7 +93,7 @@ function actualizar(){
 					'<td class="centrado">'+ datos[i].color_articulo+'</td>'+
 					'<td class="centrado">'+ datos[i].cantidad+'</td>'+
 					'<td class="centrado">'+
-					' <a class="btn btn-mini btn-danger" onclick="eliminar('+datos[i].id+')">'+
+					' <a class="btn btn-mini btn-danger" onclick="eliminarArticulo('+datos[i].id+')">'+
 					'<i class="icon-minus icon-white"></i></a></td>'+
 				'</tr>';
 				$('#tabla_item tbody').append(cadena);
@@ -111,7 +115,7 @@ function agregar_articulo ()
 	post += "&_cantidad="+$('[name=_cantidad]').val();
 	var enlace = base_url +"inventario/agregar_acta";
 	
-	alert(post+'  '+enlace);
+	//alert(post+'  '+enlace);
 	$.ajax({
 			url: enlace,
 			data: post,
@@ -130,6 +134,7 @@ function agregar_articulo ()
 			if(datos == 1){
 				alert('Agregado con exito');
 				actualizar();
+				cargarArticulos()
 			}
 		},
 		error: function() {alert('Se ha producido un error');}
@@ -148,9 +153,12 @@ function eliminar(id){
 			dataType: 'json',
 			type: "POST",
 			success: function(datos){
+				alert (datos);
 				if (datos == 1)
+				{
 					actualizar();
 					alert('Registro eliminado exitosamente');
+				}
 			},
 			error: function() {alert('Se ha producido un error');}
 	});
@@ -172,7 +180,7 @@ function guardar(){
 		post += "&id="+$('[name=id]').val();
 		enlace = base_url +"entregas/editar";
 	}
-	alert(post+'  '+enlace);
+	//alert(post+'  '+enlace);
 	$.ajax({
 			url: enlace,
 			data: post,

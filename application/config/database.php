@@ -48,11 +48,11 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'user_siss';
-$db['default']['password'] = '@@siv##';
-$db['default']['database'] = 'sistemas';
-$db['default']['dbdriver'] = 'postgre';
+$db['default']['hostname'] = 'Direccion de Servidor';
+$db['default']['username'] = 'Nombre de usuario';
+$db['default']['password'] = 'Contraseña';
+$db['default']['database'] = 'Nombre de la base de datos';
+$db['default']['dbdriver'] = 'Tipo de Base de Datos';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;
 $db['default']['db_debug'] = TRUE;

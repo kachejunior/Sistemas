@@ -12,8 +12,8 @@
                     <a class="collapsed text-info" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne" style="margin-top:5px; ">
                      Busqueda Avanzada <i class="icon-search"></i>
                     </a>
-				  <a href="<?php echo base_url().'entregas/nuevo'; ?>" class="btn-primary btn-small pull-right">
-				  <i class="icon-plus-sign icon-white"></i> Crear nuevo acta de entrega</a>						
+				  <a href="#myModal" role="button" class="btn btn-primary pull-right" data-toggle="modal" style="margin-bottom:10px; ">
+				  <i class="icon-plus-sign icon-white"></i> Agregar Actividad</a>				
                   </div>
                   <div id="collapseOne" class="accordion-body collapse" style="height: 0px;">
                     <div class="accordion-inner span12">

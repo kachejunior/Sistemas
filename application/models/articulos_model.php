@@ -199,10 +199,19 @@ class Articulos_model extends CI_Model{
 				OR (!$this->_validar('articulos', $id_articulo)) )
 			return -1;
 		
+		$sql = 'select * from detalles_actas_entregas where id_acta_entrega = '.$id_acta_entrega.' and id_articulo ='. $id_articulo;
+		$consulta = $this->db->query($sql);
+		$cantidad_entrada = $consulta->row()->cantidad; 
+		
 		$sql = 'delete from detalles_actas_entregas '.
 				  ' where id_acta_entrega = '.$id_acta_entrega.' and id_articulo = '.$id_articulo;
-		$this->db->query($sql);
-		return $this->db->affected_rows();	
+		if($this->db->query($sql))
+		{
+			entrada_de_articulo ($id_articulo, $cantidad_entrada);
+			return $this->db->affected_rows();
+		}
+		else
+			return -1;
 	}
 	
 	public function ver_articulos ($id_acta_entrega)
