@@ -41,6 +41,7 @@
 		$this->load->view('template/menu');
 		$this->load->view('administrar/actas_salidas_nuevo',$data);
 		$this->load->view('template/footer');
+		
 	}
 	
 	
