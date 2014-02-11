@@ -138,14 +138,22 @@ function guardar(){
 				alert('Error al guardar.\nVerifique los datos he intente de nuevo');
 				return false;
 			}
-			else{
-				alert('Exito al guardar');
-				url = base_url+"servicios/edicion/"+datos;
-				$(location).attr('href',url);
+			else {
+				if ($('[name=id]').val() == ''){
+					alert('Exito al guardar');
+					url = base_url + "servicios/edicion/" +datos;
+					$(location).attr('href', url);
+				}
+				else {
+					alert('Exito al guardar');
+					url = base_url + "servicios/edicion/" + $('[name=id]').val();
+					$(location).attr('href', url);
+				}
+				
 				//$('#_mensaje_alerta').append(mensaje_exito);
 			}
 		},
-		error: function() {alert('Se ha producido un error');}
+		error: function() {alert('Se ha producido un error al guardar');}
 	});
 }
 

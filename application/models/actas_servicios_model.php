@@ -90,7 +90,7 @@ class Actas_servicios_model extends CI_Model{
 						'realizado_a = '.$realizado_a.', '.
 						'detalle_servicio = '.$detalle_servicio.', '.
 						'id_gerencia = '.$id_gerencia.', '.
-						'id_sede = '.$id_sede.
+						'id_sede = '.$id_sede.', '.
 						'cedula_usuario = '.$cedula_usuario.
 						' where id = '.$id;
 		$this->db->query($sql);

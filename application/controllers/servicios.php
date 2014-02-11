@@ -71,6 +71,17 @@
 		echo  $this->actas_servicios_model->ultimo();
 	}
 	
+		
+	public function buscar()
+	{
+		$id_gerencia = $this->input->post('_gerencia');
+		$id_sede = $this->input->post('_sede');
+		$fecha_inicio = $this->input->post('_fecha_inicio');
+		$fecha_final = $this->input->post('_fecha_final');
+	
+		echo json_encode($this->actas_servicios_model->buscar(FALSE, $id_sede, $id_gerencia,  $fecha_inicio, $fecha_final));
+	}
+	
 	public function agregar()
 	{
 		$this->form_validation->set_rules('fecha_servicio', 'Fecha Servicio', 'required');
@@ -93,20 +104,10 @@
 		else
 			echo '-10';
 	}
-	
-	public function buscar()
-	{
-		$id_gerencia = $this->input->post('_gerencia');
-		$id_sede = $this->input->post('_sede');
-		$fecha_inicio = $this->input->post('_fecha_inicio');
-		$fecha_final = $this->input->post('_fecha_final');
-	
-		echo json_encode($this->actas_servicios_model->buscar(FALSE, $id_sede, $id_gerencia,  $fecha_inicio, $fecha_final));
-	}
-	
+
 	public function editar()
 	{
-		$this->form_validation->set_rules('id', 'ID', 'required');
+		
 		$this->form_validation->set_rules('fecha_servicio', 'Fecha Servicio', 'required');
 		$this->form_validation->set_rules('realizado_a', 'Realizado a', 'required|max_length[255]');
 		$this->form_validation->set_rules('detalle_servicio', 'Detalle Servicio', 'required');
@@ -123,7 +124,7 @@
 			 $id_gerencia = $this->input->post('gerencia');
 			 $id_sede = $this->input->post('sede');
 			 $cedula_usuario = $this->input->post('cedula');
-			echo $this->actas_servicios_model->editar($fecha_servicio, $realizado_a, $detalle_servicio, $id_gerencia, $id_sede, $cedula_usuario);
+			echo $this->actas_servicios_model->editar($id,	$fecha_servicio, $realizado_a, $detalle_servicio, $id_gerencia, $id_sede, $cedula_usuario);
 		}
 		else
 			echo '-10';

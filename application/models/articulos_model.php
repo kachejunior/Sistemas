@@ -63,7 +63,7 @@ class Articulos_model extends CI_Model{
 	{
 		if((!$this->_validar('sedes', $id_sede)) 
 				OR (!$this->_validar('tipos_articulos', $id_tipo_articulo)) 
-						OR (!_validar_cantidad($cantidad_disponible)))
+						OR (!$this->_validar_cantidad($cantidad_disponible)))
 			return -1;
 		
 		$nombre = $this->db->escape($nombre);

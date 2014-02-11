@@ -1,5 +1,7 @@
+<link rel="stylesheet" href="<?php echo base_url();?>media/jquery-editor/jquery-te-1.4.0.css" type="text/css" media="all">
+
 <form class="span10 offset1">
-	<!--<form class="span10 offset1" action="http://sistemas.fsbolivar.com.ve/servicios/agregar" method="post">-->
+	<!--<form class="span10 offset1" action="http://sistemas.fsbolivar.com.ve/servicios/editar" method="post">-->
 	<legend>Acta de Servicio</legend>
 		<div class="row-fluid">
 			<div class="controls">
@@ -81,8 +83,7 @@
 	<div class="row-fluid">
 		<div class="controls">
 			<div class="input-prepend span12">
-				<label>Detalles del Servicio</label>
-				<span class="add-on"><i class="icon-text-height"></i></span>
+				<label>Detalles del Servicio</label>	
 				<textarea class="span10" rows="10" name="detalle_servicio"><?php echo $actas_servicio_detalles->detalle_servicio; ?></textarea>
 			</div>
 		</div>
@@ -103,3 +104,7 @@
 
 <script type="text/javascript">var tb = '<?php echo $tb;?>';</script>
 <script src="<?php echo base_url();?>media/funcion_js/fn_actas_servicios.js"></script>
+<script src="<?php echo base_url(); ?>media/jquery-editor/jquery-te-1.4.0.min.js"></script>
+<script>
+	$("textarea").jqte();
+</script>

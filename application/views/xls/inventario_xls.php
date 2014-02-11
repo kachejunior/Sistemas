@@ -29,6 +29,6 @@
 
 
 <?php 
-	header("Content-type: application/vnd-ms-excel; charset=iso-8859-1");
-	header("Content-Disposition: attachment; filename=Inventario_".date('d-m-Y').".xls");
+	header("Content-Disposition: attachment; filename=Inventario_".date('d-m-Y').".ods");
+	header("Content-Type: application/vnd.oasis.opendocument.spreadsheet");
 ?>
