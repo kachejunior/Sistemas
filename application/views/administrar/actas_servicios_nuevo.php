@@ -77,7 +77,7 @@ foreach ($usuarios as $row) {
 	<div class="row-fluid">
 		<div class="controls">
 			<div class="input-prepend span12">
-				<label>Detalles del Servicio</label>
+				<label>Detalles de la entrega</label>
 				<textarea class="span10" rows="10" name="detalle_servicio" id="detalle_servicio" style="height: 300px;"></textarea>
 			</div>
 		</div>

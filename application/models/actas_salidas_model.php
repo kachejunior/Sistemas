@@ -61,13 +61,13 @@ class Actas_salidas_model extends CI_Model {
 			return $query->row()->id;
 		}
 		else
-			return -1;
+			return -2;
 	}
 
 	public function editar($id, $fecha_entrega, $entregado_a, $nota, $nombre_compannia, $id_sede, $cedula_usuario) {
 		if ((!$this->_validar('sedes', $id_sede)) OR (!$this->_validar_usuario($cedula_usuario)))
 			return -1;
-
+		
 		$fecha_entrega = $this->db->escape($fecha_entrega);
 		$entregado_a = $this->db->escape($entregado_a);
 		$nota = $this->db->escape($nota);
@@ -77,13 +77,14 @@ class Actas_salidas_model extends CI_Model {
 
 		//Editamos el elemento en la tabla
 		$sql = 'update actas_salidas set ' .
-						'fecha_servicio = ' . $fecha_entrega . ', ' .
-						'realizado_a = ' . $entregado_a . ', ' .
-						'detalle_servicio = ' . $nota . ', ' .
+						'fecha_entrega = ' . $fecha_entrega . ', ' .
+						'entregado_a = ' . $entregado_a . ', ' .
+						'nota = ' . $nota . ', ' .
 						'nombre_compannia = ' . $nombre_compannia . ', ' .
-						'id_sede = ' . $id_sede .
+						'id_sede = ' . $id_sede . ', ' .
 						'cedula_usuario = ' . $cedula_usuario .
 						' where id = ' . $id;
+		
 		$this->db->query($sql);
 		return $this->db->affected_rows();
 	}

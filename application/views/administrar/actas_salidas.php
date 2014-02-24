@@ -82,7 +82,7 @@
 					'<td>'.$row->nombre_compannia.'</td>'.
 					'<td>'.$row->nombre_usuario.'</td>'.
 					'<td class="centrado">'.
-						'<a class="btn btn-mini btn-warning" href="'.  base_url().'entregas/edicion/'.$row->id.'">'.
+						'<a class="btn btn-mini btn-warning" href="'.  base_url().'salidas/edicion/'.$row->id.'">'.
 						' <i class="icon-search icon-white"></i></a>'.
 						' <a class="btn btn-mini btn-danger" onclick="eliminar('.$row->id.')">'.
 						' <i class="icon-minus icon-white"></i></a>'.
@@ -97,4 +97,4 @@
 </form>
 
 <script type="text/javascript">var tb = '<?php echo $tb;?>';</script>
-<script src="<?php echo base_url();?>media/funcion_js/fn_actas_entregas.js"></script>
+<script src="<?php echo base_url();?>media/funcion_js/fn_actas_salidas.js"></script>
